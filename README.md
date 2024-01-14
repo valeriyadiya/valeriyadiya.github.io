@@ -1,13 +1,4 @@
-# Responsive Travel Website
-## [Watch it on youtube](https://youtu.be/cgV2tN8gxCg)
-### Responsive Travel Website
+# Personal Travel Website
 
-- Responsive Travel Website Design Using HTML CSS & JavaScript
-- Contains animations when scrolling.
-- Smooth scrolling in each section.
-- Developed first with the Mobile First methodology, then for desktop.
-- Compatible with all mobile devices and with a beautiful and pleasant user interface.
-
-💙 Join the channel to see more videos like this. [Bedimcode](https://www.youtube.com/@Bedimcode)
-
-![preview img](/preview.png)
+### Description
+This is a personal travel website that I created to showcase my travel experiences. How I created this website is by using HTML, CSS, and JavaScript. I used HTML to create the structure of the website, CSS to style the website, and JavaScript to make the website interactive.
