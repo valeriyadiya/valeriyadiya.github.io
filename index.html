@@ -46,7 +46,14 @@
                   </div>
                </li>
                <li class="nav__item">
-                  <a href="/expand_business.html" class="nav__link">Expand business</a>
+                  <div class="dropdown">
+                     <a href="/expand_business.html" class="nav__link">Expand business</a>
+                     <div class="dropdown-content">
+                        <a class="nav__link" href="/expand_business.html#section1">Link 1</a>
+                        <a class="nav__link" href="/expand_business.html#section2">Link 2</a>
+                        <a class="nav__link" href="/expand_business.html#section3">Link 3</a>
+                     </div>
+                  </div>
                </li>
 
                <li class="nav__item">
@@ -69,50 +76,67 @@
 
    <!--==================== MAIN CONTENT====================-->
    <div id="content" style="min-height:100vh;">
-      
+
    </div>
    <!-- DO NOT REMOVE THIS SCRIPT -->
    <script>
-         const content = document.getElementById('content');
-         const navLinks = document.querySelectorAll('.nav__link');
+      const content = document.getElementById('content');
+      const navLinks = document.querySelectorAll('.nav__link');
 
-         // on page load, the content will be replaced with the content of the home page
-         window.addEventListener('load', () => {
+      // on page load, the content will be replaced with the content of the home page
+      window.addEventListener('load', () => {
+         content.innerHTML = '';
+         fetch('home.html')
+            .then(response => response.text())
+            .then(data => {
+               content.innerHTML = data;
+            })
+      })
+
+      // when click on the nav link, the content will be replaced with the content of the page
+      navLinks.forEach(link => {
+         link.addEventListener('click', (e) => {
+            e.preventDefault();
+            navLinks.forEach(link => { link.classList.remove('active-link'); });
             content.innerHTML = '';
-            fetch('home.html')
-               .then(response => response.text())
-               .then(data => {
-                  content.innerHTML = data;
-               })
-         })
+            const href = link.getAttribute('href');
+            if (href.includes('#')) {
+               const hrefSplit = href.split('#');
+               const page = hrefSplit[0];
+               const section = hrefSplit[1];
+               fetch(page)
+                  .then(response => response.text())
+                  .then(data => {
+                     content.innerHTML = data;
+                     window.location.href = `#${section}`;
+                  })
 
-         // when click on the nav link, the content will be replaced with the content of the page
-         navLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-               e.preventDefault();
-               content.innerHTML = '';
-               const href = link.getAttribute('href');
+               var mainLink = document.querySelector('.nav__link[href="' + page + '"]');
+               mainLink.classList.add('active-link');
+            }
+            else {
                fetch(href)
                   .then(response => response.text())
                   .then(data => {
                      content.innerHTML = data;
                   })
-               navLinks.forEach(link => link.classList.remove('active-link'));
                link.classList.add('active-link');
-            })
-         })
-         
+            }
 
-         // when click on the logo, the content will be replaced with the content of the home page
-         const logo = document.querySelector('.nav__logo');
-         logo.addEventListener('click', () => {
-            content.innerHTML = '';
-            fetch('home.html')
-               .then(response => response.text())
-               .then(data => {
-                  content.innerHTML = data;
-               })
          })
+      })
+
+
+      // when click on the logo, the content will be replaced with the content of the home page
+      const logo = document.querySelector('.nav__logo');
+      logo.addEventListener('click', () => {
+         content.innerHTML = '';
+         fetch('home.html')
+            .then(response => response.text())
+            .then(data => {
+               content.innerHTML = data;
+            })
+      })
 
    </script>
 
